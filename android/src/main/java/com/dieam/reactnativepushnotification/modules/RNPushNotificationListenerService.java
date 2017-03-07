@@ -23,6 +23,8 @@ import java.util.Random;
 import static com.dieam.reactnativepushnotification.modules.RNPushNotification.LOG_TAG;
 
 public class RNPushNotificationListenerService extends GcmListenerService {
+    
+    private final static boolean DISPLAY_NOTIFICATION = false;
 
     @Override
     public void onMessageReceived(String from, final Bundle bundle) {
@@ -107,7 +109,7 @@ public class RNPushNotificationListenerService extends GcmListenerService {
 
         Log.v(LOG_TAG, "sendNotification: " + bundle);
 
-        if (!isForeground) {
+        if (!isForeground && DISPLAY_NOTIFICATION) {
             Application applicationContext = (Application) context.getApplicationContext();
             RNPushNotificationHelper pushNotificationHelper = new RNPushNotificationHelper(applicationContext);
             pushNotificationHelper.sendToNotificationCentre(bundle);
